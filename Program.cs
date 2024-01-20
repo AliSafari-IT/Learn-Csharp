@@ -1,45 +1,41 @@
-﻿using System.Drawing;
+﻿using System;
 
 class Vehicle  // base class (parent) 
 {
-    public string brand = "Ford";  // Vehicle field
-    public static void Honk()             // Vehicle method 
+    public string Brand = "Ford";  // Vehicle field
+    public static void Honk()      // Vehicle method 
     {
         Console.WriteLine("Tuut, tuut!");
-    }
-
-    public static ConsoleColor Color()
-    {
-
-        var val = new MainCar().mainColor;
-        Console.WriteLine(val);
-        if (val == ConsoleColor.Green)
-        {
-            return ConsoleColor.DarkGreen;
-        }
-
-        return val;
     }
 }
 
 class Car : Vehicle  // derived class (child)
 {
-    public string modelName = "Mustang";  // Car field
+    public string ModelName = "Mustang";  // Car field
+    public ConsoleColor MainColor = ConsoleColor.Red; // Car color
+
+    public ConsoleColor GetAdjustedColor()
+    {
+        if (MainColor == ConsoleColor.Green)
+        {
+            return ConsoleColor.DarkGreen;
+        }
+
+        return MainColor;
+    }
 }
 
-
-class MainCar
+class Program
 {
-    public ConsoleColor mainColor = ConsoleColor.Red;
-
     static void Main()
     {
-        Car myCar = new();
-        var vc = Vehicle.Color();
+        Car myCar = new Car();
+        ConsoleColor vc = myCar.GetAdjustedColor();
+
         Console.ForegroundColor = ConsoleColor.White;
-        Console.Write($"{myCar.brand} {myCar.modelName} (Color: ");
+        Console.Write($"{myCar.Brand} {myCar.ModelName} (Color: ");
         Console.ForegroundColor = vc;
-        Console.Write($" {vc}");
+        Console.Write($"{vc}");
         Console.ForegroundColor = ConsoleColor.White;
         Console.WriteLine($")");
         Vehicle.Honk();
