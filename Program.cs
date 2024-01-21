@@ -1,43 +1,18 @@
-﻿using System;
-
-class Vehicle  // base class (parent) 
-{
-    public string Brand = "Ford";  // Vehicle field
-    public static void Honk()      // Vehicle method 
-    {
-        Console.WriteLine("Tuut, tuut!");
-    }
-}
-
-class Car : Vehicle  // derived class (child)
-{
-    public string ModelName = "Mustang";  // Car field
-    public ConsoleColor MainColor = ConsoleColor.Red; // Car color
-
-    public ConsoleColor GetAdjustedColor()
-    {
-        if (MainColor == ConsoleColor.Green)
-        {
-            return ConsoleColor.DarkGreen;
-        }
-
-        return MainColor;
-    }
-}
-
+﻿// Demonstrate polymorphism in the `Main` method by creating instances of `Cat` and `Dog`, referenced as `Animal` objects.
 class Program
 {
-    static void Main()
+    static void Main(string[] args)
     {
-        Car myCar = new Car();
-        ConsoleColor vc = myCar.GetAdjustedColor();
+        // Create an Animal, a Cat, and a Dog
+        Animal myAnimal = new();  
+        Animal myCat = new Cat();  
+        Animal myDog = new Dog(); 
 
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.Write($"{myCar.Brand} {myCar.ModelName} (Color: ");
-        Console.ForegroundColor = vc;
-        Console.Write($"{vc}");
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.WriteLine($")");
-        Vehicle.Honk();
+        // Call the Animal's AnimalSound method on the Animal object
+        myAnimal.AnimalSound();
+        // Call the Animal's AnimalSound method on the Cat object
+        myCat.AnimalSound();
+        // Call the Animal's AnimalSound method on the Dog object
+        myDog.AnimalSound();
     }
 }
