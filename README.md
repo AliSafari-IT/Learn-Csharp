@@ -192,3 +192,57 @@ By using an abstract class, we create a contract for the derived classes and est
 
 > ***Output***
 ![Abstraction](img/AbstractClass.png)
+
+## 4. Interface in Action
+
+### Interface: IAnimal
+
+Git-branch: [Interfaces](https://github.com/AliSafari-IT/Learn-Csharp/tree/Interfaces)
+
+*IAnimal*: This is an interface, a contract that defines certain capabilities (methods) without implementing them. In C#, interfaces provide a way to achieve abstraction.
+
+```csharp
+// Interface
+interface IAnimal 
+{
+  void AnimalSound(); // interface method (does not have a body)
+}
+```
+
+Method declaration within IAnimal. It specifies that any class implementing this interface must provide an implementation for AnimalSound. Unlike methods in classes, interface methods don't have a body.
+
+```csharp
+internal class Cat : IAnimal 
+{
+  public void AnimalSound() 
+  {
+    // The body of animalSound() is provided here
+    Console.WriteLine("The Cat says: meow mew"); 
+  }
+}
+
+class Program 
+{
+  static void Main(string[] args) 
+  {
+    Cat myCat = new();  // Create a Cat object
+    myCat.AnimalSound();
+  }
+}
+```
+
+The interface `IAnimal` acts as a template, ensuring that all classes that implement it, like `Cat`, provide specific functionality (`AnimalSound` method).
+
+This code illustrates how interfaces promote a clear separation of definition and implementation. It also shows how they can be used to enforce certain behaviors in implementing classes.
+
+```csharp
+// Implement multiple interfaces
+// To implement multiple interfaces, separate them with a comma:
+class DemoClass : IFirstInterface, ISecondInterface 
+{
+}
+```
+
+Interfaces are central to achieving abstraction in C# and are fundamental to many design patterns.
+
+![interface](img/interface.png)

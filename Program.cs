@@ -1,33 +1,19 @@
-﻿// Demonstrate Abstract Class
-
-// This is an abstract class. 
-// You cannot create instances of an abstract class. 
-// It serves as a blueprint for other classes.
-abstract class AnimalAbstraction
+﻿
+// Cat "implements" the IAnimal interface
+internal class Cat : IAnimal 
 {
-    public abstract void AnimalSound();
-
-     public static void Sleep()
-    {
-        Console.WriteLine("Zzz");
-    }
+  public void AnimalSound() 
+  {
+    // The body of animalSound() is provided here
+    Console.WriteLine("The Cat says: meow mew"); 
+  }
 }
 
-// Derived class (inherit from Animal)
-class CatAbstraction : AnimalAbstraction
+class Program 
 {
-    public override void AnimalSound()
-    {
-        Console.WriteLine("The Cat says: meow mew!");
-    }
-}
-
-class Program
-{
-    static void Main()
-    {
-        CatAbstraction myCat = new(); 
-        myCat.AnimalSound(); 
-        AnimalAbstraction.Sleep();
-    }
+  static void Main(string[] args) 
+  {
+    Cat myCat = new();  // Create a Cat object
+    myCat.AnimalSound();
+  }
 }
