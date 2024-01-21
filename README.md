@@ -189,3 +189,6 @@ class Program
 ```
 
 By using an abstract class, we create a contract for the derived classes and establish a clear structure for our code. It's a powerful way to leverage polymorphism, ensuring that each animal class provides its own sound while sharing common behaviors like `sleep`.
+
+> ***Output***
+![Abstraction](img/AbstractClass.png)
