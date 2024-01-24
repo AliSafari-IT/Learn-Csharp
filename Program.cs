@@ -11,7 +11,7 @@ internal class Cat : IAnimal
 
 class Program 
 {
-  static void Main(string[] args) 
+  static void Main2(string[] args) 
   {
     Cat myCat = new();  // Create a Cat object
     myCat.AnimalSound();
