@@ -1,194 +1,88 @@
-# C# Exercises
+# Understanding Stacks
 
-## 1. Basic OOP concept
+* **LIFO Principle:** Stacks work on the "Last In, First Out" (LIFO) principle. Think of a stack of plates– the last plate you put on top is the first one you take off.
+* **Key Operations:**
+  * **Push:** Add an element to the top of the stack.
+  * **Pop:** Remove and return the top element of the stack.
+  * **Peek:** View the top element without removing it.
 
-Git-branch: [basic-OOP-concept](https://github.com/AliSafari-IT/Learn-Csharp/tree/basic-OOP-concept)
+## Project: Implementing a C# Stack
 
-This code is a neat demonstration of basic OOP principles in action, like different gears coming together to drive a well-functioning machine!
+### Option 1: Using a Basic Array
 
-### Key Concepts Illustrated
-
-- **Inheritance**: `Car` inherits from `Vehicle`, so it has access to the `Vehicle`'s members (`Brand` and `Honk`), plus its own (`ModelName`, `MainColor`, `GetAdjustedColor`).
-
-- **Static Method**: `Honk` is a static method, illustrating how such methods are called on the class itself rather than on instances.
-
-- **Instance Method and Fields**: `GetAdjustedColor` is an instance method, working with instance fields like `MainColor`.
-
-- **Object Instantiation**: `Car myCar = new Car();` shows how to create an instance of a class.
-
-- **Method Calling**: The way `GetAdjustedColor` and `Honk` are called demonstrates calling instance and static methods, respectively.
-
-- **Console Operations**: The code shows how to write to the console and change the console's foreground color.
+This is good for understanding the underlying concept:
 
 ```csharp
-using System;
-
-class Vehicle  // base class (parent) 
+namespace StackExample
 {
-    public string Brand = "Ford";  // Vehicle field
-    public static void Honk()      // Vehicle method 
+    class MyStack
     {
-        Console.WriteLine("Tuut, tuut!");
-    }
-}
+        private int[] data;  // Array to store stack elements
+        private int top;     // Index of the top element
 
-class Car : Vehicle  // derived class (child)
-{
-    public string ModelName = "Mustang";  // Car field
-    public ConsoleColor MainColor = ConsoleColor.Red; // Car color
-
-    public ConsoleColor GetAdjustedColor()
-    {
-        if (MainColor == ConsoleColor.Green)
+        public MyStack(int size) 
         {
-            return ConsoleColor.DarkGreen;
+            data = new int[size];
+            top = -1;  // Initially the stack is empty
         }
 
-        return MainColor;
+        public void Push(int item) 
+        {
+            if (top == data.Length - 1) // Check for overflow
+            {
+                throw new Exception("Stack overflow"); 
+            }
+            top++;
+            data[top] = item;
+        }
+
+        // ... Implement Pop() and Peek() similarly ...
     }
 }
-
-class Program
-{
-    static void Main()
-    {
-        Car myCar = new Car();
-        ConsoleColor vc = myCar.GetAdjustedColor();
-
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.Write($"{myCar.Brand} {myCar.ModelName} (Color: ");
-        Console.ForegroundColor = vc;
-        Console.Write($"{vc}");
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.WriteLine($")");
-        Vehicle.Honk();
-    }
-}
-
 ```
 
-> ***Output***
-![ConsoleColor](img/ConsoleColor.png)
+### Option 2: Using the built-in `List<T>`
 
-## 2. Polymorphism in Action
-
-Git-branch: [Polymorphism-and-Overriding](https://github.com/AliSafari-IT/Learn-Csharp/tree/Polymorphism-and-Overriding)
-
-It's a concept where objects of different classes can be treated as objects of a common superclass. The word itself comes from Greek, meaning "many forms."
-
-In more technical terms, polymorphism allows methods to do different things based on the object they are acting upon. This means we can use a single interface to represent different underlying forms (data types).
-
-### Base Class: Animal
-
-class Animal: This is our base (or parent) class. It represents a generic animal.
-public virtual void animalSound(): This method is marked as virtual, which means it can be overridden in derived classes. It provides a default implementation that just prints "The animal makes a sound".
-
-``` csharp
-class Animal  // Base class (parent) 
-{
-    public virtual void AnimalSound()
-    {
-        Console.WriteLine("The animal makes a sound!");
-    }
-}
-
-// Define derived classes `Cat` and `Dog` that override the `animalSound()` method.
-class Cat : Animal  // Derived class (child) 
-{
-    public override void AnimalSound()
-    {
-        Console.WriteLine("The cat says: meow miauw!");
-    }
-}
-
-class Dog : Animal  // Derived class (child) 
-{
-    public override void AnimalSound()
-    {
-        Console.WriteLine("The dog says:  bow-wow!");
-    }
-}
-
-```
-
-The beauty of this code lies in how it demonstrates polymorphism. Both `myCat` and `myDog` are declared as `Animal` type but actually refer to `Cat` and `Dog` objects. Due to method overriding and the way C# handles polymorphism, the correct `animalSound` method is called for each object.
+This utilizes C#'s existing dynamic list-like data structure:
 
 ```csharp
-class Program
+namespace StackExample
 {
-    static void Main(string[] args)
+    class ListStack<T>  // Using generics for flexibility
     {
-        // Create an Animal, a Cat, and a Dog
-        Animal myAnimal = new();  
-        Animal myCat = new Cat();  
-        Animal myDog = new Dog(); 
+        private List<T> data; 
 
-        // Call the Animal's AnimalSound method on the Animal object
-        myAnimal.AnimalSound();
-        // Call the Animal's AnimalSound method on the Cat object
-        myCat.AnimalSound();
-        // Call the Animal's AnimalSound method on the Dog object
-        myDog.AnimalSound();
+        public ListStack() 
+        {
+            data = new List<T>(); 
+        }
+
+        public void Push(T item) 
+        {
+            data.Add(item); 
+        }
+
+        // ... Implement Pop() and Peek() using List's methods ...
     }
 }
 ```
 
-In summary, this code illustrates how we can use a single interface (`animalSound` method in `Animal`) to achieve different behaviors based on the actual object type (`Cat` or `Dog`). It's like having a universal remote that magically adjusts its controls based on the device it's pointing at!
-
-In essence, polymorphism is about leveraging inheritance to create a more flexible and integrated interface. It's a cornerstone of object-oriented programming, allowing for more dynamic and versatile code.
-
-## 3. Abstraction in Action
-
-Git-branch: [Abstract-Classes-and-Methods](https://github.com/AliSafari-IT/Learn-Csharp/tree/Abstract-Classes-and-Methods)
+## Using Your Stack (in Program.cs)
 
 ```csharp
-abstract class AnimalAbstraction
+// ... (rest of your Program.cs)
+
+static void Main(string[] args)
 {
-
-    // This is an abstract method. 
-    // It has no body and must be implemented by any non-abstract 
-    // class that inherits from this abstract class.
-    public abstract void AnimalSound();
-
-    // This is a regular (non-abstract) method in the abstract class. 
-    // It has a body and provides default behavior (printing "Zzz") that derived classes inherit.
-    public static void Sleep()
-    {
-        // while sharing common behaviors like `sleep`, animals can have their own sound.
-        Console.WriteLine("Zzz");
-    }
+    MyStack stack = new MyStack(10);  // Using the array-based option
+    stack.Push(5);
+    stack.Push(10); 
+    // ...  
 }
 ```
 
-**Abstraction**: The `AnimalAbstraction` class provides a level of abstraction. It defines a general concept (an animal) without specifying all the details (how it makes a sound). Those details are provided in the derived classes.
+## Next Steps
 
-```csharp
-class CatAbstraction : AnimalAbstraction
-{
-    // This class inherits from AnimalAbstraction. Being non-abstract, it must implement the abstract method AnimalSound.
-    public override void AnimalSound()
-    {
-        // The body of animalSound() is provided here
-        Console.WriteLine("The Cat says: meow mew!");
-    }
-}
-```
-
-**Code Reusability and Structure**: The abstract class allows we to define methods that can be shared by derived classes (`sleep`) and methods that must be individualized by each derived class (`AnimalSound`).
-
-```csharp
-class Program
-{
-    static void Main()
-    {
-        CatAbstraction myCat = new(); // Create a Cat object
-        myCat.AnimalSound();  // Call the abstract method
-        AnimalAbstraction.Sleep();  // Call the regular method
-    }
-}
-```
-
-By using an abstract class, we create a contract for the derived classes and establish a clear structure for our code. It's a powerful way to leverage polymorphism, ensuring that each animal class provides its own sound while sharing common behaviors like `sleep`.
-
-> ***Output***
-![Abstraction](img/AbstractClass.png)
+1. **Complete the Stack:** Implement the `Pop()` and `Peek()` methods as well as potential error handling (e.g., trying to Pop from an empty stack).
+2. **Test:** Create a `Main` function and thoroughly test your stack by adding and removing elements.
+3. **Consider Linked List Implementation:** Once comfortable, learn about linked lists and try implementing a stack using a linked list for a different way to tackle the problem.

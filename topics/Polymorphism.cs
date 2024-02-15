@@ -2,25 +2,16 @@
 
 class Animal  // Base class (parent) 
 {
-    public virtual void AnimalSound()
-    {
-        Console.WriteLine("The animal makes a sound!");
-    }
+    public virtual void AnimalSound() => Console.WriteLine("The animal makes a sound!");
 }
 
 // Define derived classes `Cat` and `Dog` that override the `animalSound()` method.
 class Cat : Animal  // Derived class (child) 
 {
-    public override void AnimalSound()
-    {
-        Console.WriteLine("The cat says: meow miauw!");
-    }
+    public override void AnimalSound() => Console.WriteLine("The cat says: meow miauw!");
 }
 
 class Dog : Animal  // Derived class (child) 
 {
-    public override void AnimalSound()
-    {
-        Console.WriteLine("The dog says:  bow-wow!");
-    }
+    public override void AnimalSound() => Console.WriteLine("The dog says:  bow-wow!");
 }

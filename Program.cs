@@ -7,7 +7,7 @@ abstract class AnimalAbstraction
 {
     public abstract void AnimalSound();
 
-     public static void Sleep()
+    public static void Sleep()
     {
         Console.WriteLine("Zzz");
     }
@@ -26,8 +26,17 @@ class Program
 {
     static void Main()
     {
-        CatAbstraction myCat = new(); 
-        myCat.AnimalSound(); 
+        CatAbstraction myCat = new();
+        myCat.AnimalSound();
         AnimalAbstraction.Sleep();
+
+        MyStack stack = new MyStack(10);  // Using the array-based option
+        stack.Push(5);
+        stack.Push(10);
+
+        ListStack<int> listStack = new();  // Using the list-based option
+        listStack.Push(5);
+        listStack.Push(10);
+        
     }
 }
